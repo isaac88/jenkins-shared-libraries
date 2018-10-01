@@ -22,21 +22,21 @@ def call(String project) {
             } else {
                 echo "Not creating a release!"
             }
-            sh "docker container run --rm -v \${PWD}:/src vfarcic/gox ${project}"
+            sh "docker container run --rm -v \${PWD}:/src isaac88/gox ${project}"
             if (msg.contains("[release]")) {
                 sh "git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
                 sh "git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${project}.git --tags"
                 def cmd = """docker container run --rm \
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \
                     -v \${PWD}:/src -w /src \
-                    vfarcic/github-release"""
-                sh """${cmd} github-release release --user vfarcic \
+                    isaac88/github-release"""
+                sh """${cmd} github-release release --user isaac88 \
                     --repo ${project} --tag ${currentBuild.displayName} \
                     --name '${releaseTitle}' --description '${releaseMsg}'"""
                 files = findFiles(glob: "${project}_*")
                 for (def file : files) {
                     sh """${cmd} github-release upload \
-                        --user vfarcic --repo ${project} \
+                        --user isaac88 --repo ${project} \
                         --tag ${currentBuild.displayName} \
                         --name '${file.name}' \
                         --file ${file.name}"""

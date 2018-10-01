@@ -23,7 +23,7 @@ def call(String project) {
                 def cmd = """docker container run --rm \
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \
                     -v \${PWD}:/src -w /src \
-                    vfarcic/github-release"""
+                    isaac88/github-release"""
                 sh """${cmd} github-release release --user docker-flow \
                     --repo ${project} --tag ${currentBuild.displayName} \
                     --name '${releaseTitle}' --description '${releaseMsg}'"""

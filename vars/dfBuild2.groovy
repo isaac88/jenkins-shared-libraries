@@ -1,7 +1,7 @@
 /*******************************************
  * Build and tag images
  ******************************************/ 
-def call(String project, String goxImage = "vfarcic/gox") {
+def call(String project, String goxImage = "isaac88/gox") {
     // Build image for linux-amd64
     sh "docker image build -t dockerflow/${project}:linux-amd64 ."
     
