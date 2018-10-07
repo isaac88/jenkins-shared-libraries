@@ -21,7 +21,7 @@ def call(project, domain, extraValues = "") {
         --namespace ${project}-build \
         --set image.tag=${tagBeta} \
         --set ingress.host=${addr.toLowerCase()} \
-        ${extraValues}""" */
+        ${extraValues}"""
     }
     echo "echo step (out of block) - vars: ${usernameLocal} - ${passwordLocal}"
 }
