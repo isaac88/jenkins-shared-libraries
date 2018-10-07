@@ -1,11 +1,11 @@
-def call(project, domain, extraValues = "") {
+def call(project, domain, extraValues = "", museumAddr) {
     withCredentials([usernamePassword(credentialsId: "chartmuseum", usernameVariable: "USER", passwordVariable: "PASS")]) {
         chartName = "${project}-${env.BUILD_NUMBER}-${env.BRANCH_NAME}"
         tagBeta = "${currentBuild.displayName}-${env.BRANCH_NAME}"
         addr = "${project}-${env.BUILD_NUMBER}-${env.BRANCH_NAME}.${domain}"
 
         sh """helm repo add \
-        chartmuseum http://${USER}:${PASS}@chartmuseum-chartmuseum.default.svc:8080"""
+        chartmuseum http://${USER}:${PASS}@${museumAddr}"""
 
         sh """helm repo update"""
 
