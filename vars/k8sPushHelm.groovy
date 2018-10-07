@@ -10,7 +10,7 @@ def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = f
             }
         }
         if (replaceTag) {
-            // Set Chart.yaml Image tag version
+            // Set in Chart.yaml Image tag version
             yaml = readYaml file: "helm/${project}/values.yaml"
             yaml.image.tag = currentBuild.displayName
             sh "rm -f helm/${project}/values.yaml"
