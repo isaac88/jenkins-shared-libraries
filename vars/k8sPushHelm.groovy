@@ -1,6 +1,8 @@
 def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = false) {
     withCredentials([usernamePassword(credentialsId: "chartmuseum", usernameVariable: "USER", passwordVariable: "PASS")]) {
+        // Check if Chart Exist on Chartmuseum
         if (failIfExists) {
+            // Read YML File get Chart Version
             yaml = readYaml file: "helm/${project}/Chart.yaml"
             out = sh returnStdout: true, script: "curl -u $USER:$PASS http://${museumAddr}/api/charts/${project}/${yaml.version}"
             if (!out.contains("error")) {
@@ -8,6 +10,7 @@ def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = f
             }
         }
         if (replaceTag) {
+            // Set Chart.yaml Image tag version
             yaml = readYaml file: "helm/${project}/values.yaml"
             yaml.image.tag = currentBuild.displayName
             sh "rm -f helm/${project}/values.yaml"
