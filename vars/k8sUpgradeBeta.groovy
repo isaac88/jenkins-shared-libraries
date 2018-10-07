@@ -1,11 +1,12 @@
 def call(project, domain, extraValues = "") {
+    def usernameLocal, passwordLocal
     withCredentials([usernamePassword(credentialsId: "chartmuseum", usernameVariable: "USER", passwordVariable: "PASS")]) {
         chartName = "${project}-${env.BUILD_NUMBER}-${env.BRANCH_NAME}"
         tagBeta = "${currentBuild.displayName}-${env.BRANCH_NAME}"
         addr = "${project}-${env.BUILD_NUMBER}-${env.BRANCH_NAME}.${domain}"
 
-        sh 'echo $USER'
-        sh 'echo $PASS'
+        usernameLocal = env.USER
+        passwordLocal = env.PASS
 
         sh """helm repo add \
         --username $USER \
@@ -22,4 +23,5 @@ def call(project, domain, extraValues = "") {
         --set ingress.host=${addr.toLowerCase()} \
         ${extraValues}"""
     }
+    echo "echo step (out of block) - vars: ${usernameLocal} - ${passwordLocal}"
 }
