@@ -4,6 +4,9 @@ def call(project, domain, extraValues = "") {
         tagBeta = "${currentBuild.displayName}-${env.BRANCH_NAME}"
         addr = "${project}-${env.BUILD_NUMBER}-${env.BRANCH_NAME}.${domain}"
 
+        sh 'echo $USER'
+        sh 'echo $PASS'
+
         sh """helm repo add \
         --username $USER \
         --password $PASS \
