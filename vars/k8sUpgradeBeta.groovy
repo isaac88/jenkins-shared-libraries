@@ -11,6 +11,8 @@ def call(project, domain, extraValues = "") {
         sh """helm repo add \
         chartmuseum http://${USER}:${PASS}@chartmuseum-chartmuseum.default.svc:8080"""
 
+        sh """helm repo index ./ --url http://${USER}:${PASS}@chartmuseum-chartmuseum.default.svc:8080"""
+
         sh """helm repo update"""
 
         sh """helm upgrade \
