@@ -9,9 +9,7 @@ def call(project, domain, extraValues = "") {
         passwordLocal = env.PASS
 
         sh """helm repo add \
-        --username $USER \
-        --password $PASS \
-        chartmuseum http://chartmuseum-chartmuseum:8080"""
+        chartmuseum http://${USER}:${PASS}@chartmuseum-chartmuseum.default.svc:8080"""
 
         sh """helm repo update"""
 
