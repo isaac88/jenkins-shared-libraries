@@ -11,7 +11,7 @@ def call(project, domain, extraValues = "") {
         sh """helm version"""
 
         sh """helm repo add \
-        chartmuseum http://admin:temporal@chartmuseum-chartmuseum.default.svc:8080"""
+        chartmuseum http://${USER}:${PASS}@chartmuseum-chartmuseum.default.svc:8080"""
 
         sh """helm repo update"""
 
@@ -21,7 +21,7 @@ def call(project, domain, extraValues = "") {
         --namespace ${project}-build \
         --set image.tag=${tagBeta} \
         --set ingress.host=${addr.toLowerCase()} \
-        ${extraValues}"""
+        ${extraValues}""" */
     }
     echo "echo step (out of block) - vars: ${usernameLocal} - ${passwordLocal}"
 }
